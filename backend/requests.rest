@@ -1,0 +1,51 @@
+GET http://127.0.0.1:5000/categories HTTP/1.1
+
+### 
+
+GET http://127.0.0.1:5000/questions HTTP/1.1
+
+### 
+
+GET http://127.0.0.1:5000/questions?page=2 HTTP/1.1
+
+### 
+
+GET http://127.0.0.1:5000/questions?page=2000 HTTP/1.1
+
+###
+
+POST  http://127.0.0.1:5000/questions HTTP/1.1
+Content-Type: application/json
+
+{
+    "question": "1+1",
+    "answer": "2",
+    "difficulty": 1,
+    "category": 1
+}
+
+###
+POST  http://127.0.0.1:5000/questions HTTP/1.1
+Content-Type: application/json
+
+{
+    "searchTerm": "what is"
+}
+
+###
+DELETE http://127.0.0.1:5000/questions/22 HTTP/1.1
+
+###
+GET http://127.0.0.1:5000/categories/2/questions HTTP/1.1
+
+### 
+POST http://127.0.0.1:5000/quizzes HTTP/1.1
+Content-Type: application/json
+
+{
+    "previous_questions": [5],
+    "quiz_category": {
+        "type": "Science",
+        "id": 4
+    }
+}
