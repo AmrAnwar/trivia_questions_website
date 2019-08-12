@@ -1,6 +1,7 @@
 import os
 from flask import Flask, request, abort, jsonify
 from flask_sqlalchemy import SQLAlchemy
+from sqlalchemy.sql.expression import func
 from flask_cors import CORS
 from werkzeug.exceptions import NotFound
 import random
@@ -226,14 +227,14 @@ def create_app(test_config=None):
             quiz_category = request.json.get("quiz_category", None)
             questions = Question.query
             if int(quiz_category.get('id')):
-                questions = Question.query.filter_by(
-                    category=str(quiz_category.get('id')))
+                questions = Question.query.filter(
+                    Question.category == str(quiz_category.get('id')))
             return jsonify(
                 {
                     "success": True,
                     "question": questions.filter(
-                        Question.id.notin_(
-                            previous_questions)).first().format()
+                        Question.id.notin_(previous_questions)
+                            ).order_by(func.random()).first().format()
                 }
             ), 200
         except AttributeError:
